@@ -1,0 +1,376 @@
+---
+title: "Untitled"
+format: html
+editor: visual
+---
+
+## Function
+
+### About
+
+-   A set of statements which perform a specific task
+-   R has a large number of in-built functions
+
+### Syntax
+
+``` r
+function_name <- function(arg_1, arg_2) { 
+  function_body 
+  }
+```
+
+### Types
+
+| Types        | Description                     |
+|--------------|---------------------------------|
+| Built-in     | Pre-defined function            |
+| User-defined | Defined by user using R program |
+
+### Built-in
+
+| Function | Description  |
+|----------|--------------|
+| sum()    | Summation    |
+| mean()   | Mean value   |
+| median() | Median value |
+| min()    | Minimum      |
+| max()    | Maximum      |
+
+### Example 1
+
+```{r}
+x <- 1:100
+
+sum(x)
+mean(x)
+median(x)
+min(x)
+max(x)
+```
+
+### Special
+
+| Function | Description |
+|----|----|
+| c() | Combines values into a vector. |
+| print() | Displays output in the console. Auto-print is disabled in loops/function |
+| paste() | Concatenates strings (or variables) into single string. |
+| cat() | Prints output without quotes/indices. Useful for clean logging. |
+
+### Examples
+
+```{r}
+vector <- c(2, 5, -7, -8, 10)
+```
+
+```{r}
+print(vector)
+```
+
+```{r}
+paste("Vector", vector)
+cat("Vector", vector)
+```
+
+# Control Statement
+
+## For Loop
+
+### About
+
+-   Loop repeats a specific block of code.
+-   A for loop is used to iterate (repeat) over a sequence.
+
+### Syntax
+
+``` r
+for (val in sequence)
+{
+statement
+}
+```
+
+### Example
+
+-   Count the number of even numbers in a sequence.
+
+```{r}
+for (i in vector) {
+  i^2
+}
+```
+
+```{r}
+for (i in vector) {
+ 	print(i^2)
+}
+```
+
+## Your Turn 01
+
+### Question
+
+-   Write a for loop in R that iterates over each value in a vector.
+-   If value greater (\>) than 0, print the value to the console."
+
+### Answer
+
+```{r}
+
+
+
+
+
+
+
+```
+
+## while loop
+
+### Syntax
+
+``` r
+while (test_expression)
+{
+statement
+}
+```
+
+### Example
+
+```{r}
+i <- 1
+while (i < 6) {
+  print(i)
+  i = i+1
+}
+```
+
+# Break and Next Statement
+
+## Break
+
+### Syntax
+
+``` r
+if (test_expression) {
+break
+}
+```
+
+### Example 1
+
+```{r}
+x <- 1:5
+for (i in x) {
+  if (i == 4){
+  break
+  }
+  print(i)
+}
+```
+
+## Next
+
+### Syntax
+
+``` r
+if (test_condition) {
+next
+}
+```
+
+### Example
+
+```{r}
+x <- 1:5
+for (i in x) {
+  if (i == 4){
+  next
+  }
+  print(i)
+}
+```
+
+## Repeat Loop
+
+### Syntax
+
+``` r
+repeat {
+statement
+}
+```
+
+### Example
+
+```{r}
+x <- 1
+
+repeat {
+  print(x)
+  x = x+1
+  if (x == 5){
+  break
+  }
+}
+```
+
+# Function II
+
+### Types
+
+| Types        | Description                     |
+|--------------|---------------------------------|
+| Built-in     | Pre-defined function            |
+| User-defined | Defined by user using R program |
+
+## User-defined Function
+
+### Example
+
+```{r}
+powr <- function(x, y) {
+
+  output <- x^y
+  paste(x,"^", y, "is", output)
+}
+
+
+powr(4, 5)
+```
+
+### Named arguments
+
+Named argument will not affect positional arguments.
+
+```{r}
+powr(x=4, y=5)
+powr(y=5, x=2)
+```
+
+### Default value
+
+Default value for arguments.
+
+```{r}
+powr <- function(x, y=2) {
+
+  output <- x^y
+  print(paste(x,"^", y, "is", output))
+}
+
+
+powr(4)
+
+powr(4,5)
+```
+
+## Return a value
+
+### Syntax
+
+return(expression)
+
+### No Return
+
+Function without return
+
+```{r}
+check <- function(x) {
+  if (x > 0) {
+  result <- "Positive"
+  }
+  else if (x < 0) {
+  result <- "Negative"
+  }
+  else {
+  result <- "Zero"
+  }
+}
+
+check(-10)
+
+```
+
+### Return
+
+```{r}
+check <- function(x) {
+if (x > 0) {
+result <- "Positive"
+}
+else if (x < 0) {
+result <- "Negative"
+}
+else {
+result <- "Zero"
+}
+  
+return(result)
+
+}
+
+check(10)
+```
+
+### Conditional return
+
+```{r}
+check <- function(x) {
+  if (x>0) {
+  return("Positive")
+  }
+  else if (x<0) {
+  return("Negative")
+  }
+  else {
+  return("Zero")
+  }
+}
+
+check(0)
+```
+
+## Your Turn 02
+
+### Question
+
+Create a function `calculate_ticket_price()` below determines the base price of a movie ticket based on age:
+
+-   Children (age \< 13): \$5
+-   Seniors (age \> 65): \$7
+-   Other (age 13–65): \$10
+
+### Answer
+
+```{r}
+
+
+
+
+
+
+
+
+
+
+
+```
+
+## Function's Scope
+
+-   global variable is shared across the program.
+-   local variable only exist in certain part of program like function.
+
+```{r}
+a <- "apple" # global variable
+
+fun_scope <- function(){
+  a <- "ball" # local variable
+  return(a)
+}
+
+fun_scope() # call function
+print(a) # print a variable
+```
