@@ -51,7 +51,7 @@ max(x)
 ### Special
 
 | Function | Description |
-|--------------------------|----------------------------------------------|
+|----|----|
 | c() | Combines values into a vector. |
 | print() | Displays output in the console. Auto-print is disabled in loops/function |
 | paste() | Concatenates strings (or variables) into single string. |
@@ -492,7 +492,7 @@ good_func <- function(x) {
 
 **Example:**
 
-```{r}         
+```{r}
 #' Calculate Discounted Price
 #'
 #' @param price Original price (numeric).
