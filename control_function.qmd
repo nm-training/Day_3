@@ -51,7 +51,7 @@ max(x)
 ### Special
 
 | Function | Description |
-|----|----|
+|--------------------------|----------------------------------------------|
 | c() | Combines values into a vector. |
 | print() | Displays output in the console. Auto-print is disabled in loops/function |
 | paste() | Concatenates strings (or variables) into single string. |
@@ -374,3 +374,219 @@ fun_scope <- function(){
 fun_scope() # call function
 print(a) # print a variable
 ```
+
+## Best practices for creating Function
+
+### Naming
+
+**1. Clear and Descriptive Naming**
+
+✅ **Do:**
+
+-   Use **verbs** for function names (e.g., `calculate_mean()`, `filter_data()`).
+
+-   Keep names **short but meaningful** (e.g., `convert_temp()` instead of `temp_conversion_function()`).
+
+❌ **Avoid:**
+
+-   Vague names like `foo()` or `do_stuff()`.
+
+-   Overly long names (`calculate_monthly_sales_report_for_each_region()`).
+
+### Principle
+
+**2. Single Responsibility Principle**
+
+✅ **Do:**
+
+-   Each function should **do one thing well**.
+
+-   Break complex tasks into smaller functions.
+
+❌ **Avoid:**
+
+-   Writing a single function that loads data, cleans it, analyzes it, and plots results.
+
+**Example:**
+
+```{r}
+# Good: Separate functions for each task
+clean_data <- function(data) { ... }
+analyze_data <- function(cleaned_data) { ... }
+```
+
+### Default
+
+**3. Explicit Arguments with Default Values**
+
+✅ **Do:**
+
+-   Define **default values** for optional arguments.
+
+-   Use `NULL` as a default if the argument is optional but has no natural default.
+
+**Example:**
+
+```{r}
+# Good: Default values make usage flexible
+calculate_discount <- function(price, discount_rate = 0.1) {
+  price * (1 - discount_rate)
+}
+```
+
+### Input
+
+**4. Input Validation**
+
+✅ **Do:**
+
+-   Check for **invalid inputs** (e.g., negative numbers, wrong data types).
+
+-   Use `stop()`, `warning()`, or `message()` for errors.
+
+**Example:**
+
+```{r}
+calculate_age <- function(birth_year) {
+  current_year = 2025
+  if (!is.numeric(birth_year)) {
+    stop("Input must be numeric.")
+  }
+  current_year - birth_year
+}
+```
+
+### Output
+
+**5. Return Consistent Output Types**
+
+✅ **Do:**
+
+-   Ensure the function **always returns the same type** (e.g., vector, list, or `NULL`).
+
+-   Avoid silent failures (return `NA` with a warning if needed).
+
+**Example:**
+
+```{r}
+# Bad: Returns different types (numeric or character)
+bad_func <- function(x) {
+  if (x > 0) return(x) else return("Negative")
+}
+
+# Good: Always returns numeric
+good_func <- function(x) {
+  if (x > 0) x else NA
+}
+```
+
+### Document
+
+**6. Document with Comments & `roxygen2`**
+
+✅ **Do:**
+
+-   Use `roxygen2` for **formal documentation** (if sharing code).
+
+-   Add **inline comments** for complex logic.
+
+**Example:**
+
+```{r}         
+#' Calculate Discounted Price
+#'
+#' @param price Original price (numeric).
+#' @param discount_rate Discount percentage (default: 0.1).
+#' @return Discounted price (numeric).
+calculate_discount <- function(price, discount_rate = 0.1) {
+  price * (1 - discount_rate)
+}
+```
+
+### Variable
+
+**7. Avoid Global Variables**
+
+✅ **Do:**
+
+-   Pass all required data as **arguments**.
+
+-   Use `<-` inside functions for local variables.
+
+❌ **Avoid:**
+
+-   Modifying global variables (e.g., using `<<-`).
+
+**Example:**
+
+```{r}
+# Bad: Relies on global variable
+discount_rate <- 0.1
+bad_func <- function(price) {
+  price * (1 - discount_rate)  # Avoid!
+}
+
+# Good: Explicit argument
+good_func <- function(price, discount_rate = 0.1) {
+  price * (1 - discount_rate)
+}
+```
+
+### Optimize
+
+**8. Optimize for Performance**
+
+✅ **Do:**
+
+-   Vectorize operations (use `apply()` family or `dplyr`).
+
+-   Avoid loops (`for`, `while`) where possible.
+
+**Example:**
+
+```{r}
+# Bad: Slow loop
+slow_func <- function(x) {
+  result <- numeric(length(x))
+  for (i in seq_along(x)) {
+    result[i] <- x[i] * 2
+  }
+  result
+}
+
+# Good: Vectorized
+fast_func <- function(x) {
+  x * 2
+}
+```
+
+### Test
+
+**9. Test Your Function**
+
+✅ **Do:**
+
+-   Use `testthat` for unit tests.
+
+-   Test edge cases (e.g., `NA`, empty inputs).
+
+**Example:**
+
+```{r}
+# install.packages("testthat)
+
+library(testthat)
+test_that("calculate_discount works", {
+  expect_equal(calculate_discount(100), 90)
+  expect_equal(calculate_discount(100, 0.2), 80)
+})
+```
+
+### Simple
+
+**10. Keep Functions Short**
+
+✅ **Do:**
+
+-   Aim for **\<20 lines** per function.
+-   Split long functions into smaller helper functions.
