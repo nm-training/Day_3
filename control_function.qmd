@@ -1,5 +1,6 @@
 ---
-title: "Untitled"
+title: "Function"
+author: "R Trainer: Binod Jung Bogati (linkedin.com/in/bjungbogati)"
 format: html
 editor: visual
 ---
@@ -51,7 +52,7 @@ max(x)
 ### Special
 
 | Function | Description |
-|------------------------------------|------------------------------------|
+|----|----|
 | c() | Combines values into a vector. |
 | print() | Displays output in the console. Auto-print is disabled in loops/function |
 | paste() | Concatenates strings (or variables) into single string. |
@@ -572,7 +573,7 @@ fast_func <- function(x) {
 
 **Example:**
 
-```{.r}
+``` r
 # install.packages("testthat)
 
 library(testthat)
